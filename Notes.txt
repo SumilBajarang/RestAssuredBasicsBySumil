@@ -1,0 +1,24 @@
+
+XmlPath
+===========
+Response response = requestSpec.get();
+XmlPath objXmlPath = new XmlPath(response.asString());
+String travellerName = objXmlPath.get("TravelerinformationResponse.travelers.Travelerinformation[0].name").toString();
+Assert.assertEquals(travellerName, "Developer", "check for traveller name.");
+List<String> listOfTravellers = objXmlPath.getList("TravelerinformationResponse.travelers.Travelerinformation");
+
+ObjectNode (jackson-databind)
+================================
+//Create ObjectMapper class instance
+
+ObjectMapper objectMapper = new ObjectMapper();
+
+//Create object node i.e json node 
+
+ObjectNode userDetails = objectMapper.createObjectNode();
+userDetails.put("firstNme", "Prerna");
+ObjectNode techSkill = objectMapper.createObjectNode();
+techSkill.put("Programming language", "Java");
+userDetails.set("TechSkill", techSkill);
+String UserDetailsAsString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(userDetails);
+System.out.println("Created JSON Node is:" + UserDetailsAsString);
